@@ -1,11 +1,14 @@
-require("dotenv").config()
+require("dotenv").config();
 const express = require("express");
 const bodyParser = require("body-parser");
 const compiler = require("compilex");
 const fs = require("fs");
+const cors = require('cors')
 const path = require("path");
 
 const app = express();
+// const cors = require("cors");
+app.use(cors());
 const options = { stats: true };
 compiler.init(options);
 
@@ -157,7 +160,7 @@ const recreateBaseTempDirectory = (dir, retries) => {
         }
     });
 };
-port = process.env.port || 8000
+port = process.env.port || 8000;
 app.listen(port, () => {
-    console.log("Server is running on http://localhost:",port);
+    console.log("Server is running on http://localhost:8041");
 });
