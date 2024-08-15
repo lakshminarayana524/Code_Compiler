@@ -239,7 +239,7 @@ print("Hello, World!")
                 lang: option.value,
             };
             try {
-                var response = await fetch("http://localhost:5000/compile", {
+                var response = await fetch("https://code-compiler-0a1v.onrender.com/compile", {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json"

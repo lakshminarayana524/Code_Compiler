@@ -3,20 +3,21 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const compiler = require("compilex");
 const fs = require("fs");
-const cors = require('cors')
+const cors = require('cors');
 const path = require("path");
 
 const app = express();
-// const cors = require("cors");
 app.use(cors());
 const options = { stats: true };
 compiler.init(options);
 
 app.use(bodyParser.json());
-app.use("/codemirror-5.65.17", express.static("D:/compiler/codemirror-5.65.17"));
+
+// Serve static files from the "public" directory
+app.use("/codemirror-5.65.17", express.static(path.join(__dirname, 'public', 'codemirror-5.65.17')));
 
 app.get("/", (req, res) => {
-    res.sendFile(path.resolve("D:/compiler/index.html"));
+    res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
 
 app.post("/compile", (req, res) => {
@@ -60,7 +61,7 @@ app.post("/compile", (req, res) => {
         // Delay before flushing files
         setTimeout(() => {
             // Attempt to delete and recreate the base temp directory
-            manageTempDirectory('D:/compiler/temp', 3); // Retry up to 3 times
+            manageTempDirectory(path.join(__dirname, 'temp'), 3); // Retry up to 3 times
         }, 5000); // Increased delay
 
     } catch (e) {
@@ -160,7 +161,8 @@ const recreateBaseTempDirectory = (dir, retries) => {
         }
     });
 };
-port = process.env.port || 8000;
+
+const port = process.env.PORT || 8000;
 app.listen(port, () => {
-    console.log("Server is running on http://localhost:8041");
+    console.log(`Server is running on http://localhost:${port}`);
 });
