@@ -131,19 +131,41 @@
             height: calc(40% - 1rem);
             margin-top: 1rem;
         }
+        .logo-container {
+            display: flex;
+            align-items: center;
+        }
+        .logo-container img {
+            height: 40px;
+            margin-right: 1rem;
+        }
+        .logo-container h1 {
+            margin: 0;
+            font-size: 1.5rem;
+            color: #c9d1d9;
+        }
+        body.light-theme .logo-container h1 {
+            color: #212529;
+        }
     </style>
 </head>
 <body class="dark-theme">
     <i class="bi bi-moon theme-toggle" id="themeToggle"></i>
     <div class="container editor-container">
         <div class="editor-header">
-            <select class="form-select w-auto" id="specificSizeSelect">
-                <option selected disabled>Choose Language</option>
-                <option value="Java">Java</option>
-                <option value="Cpp">Cpp</option>
-                <option value="Python">Python</option>
-            </select>
-            <button type="button" id="run" class="btn btn-success ms-2"><i class="bi bi-play-fill"></i> Run</button>
+            <div class="logo-container">
+                <img src="../../public/images/logo.png" alt="Logo">
+                <h1>Code Compiler</h1>
+            </div>
+            <div>
+                <select class="form-select w-auto" id="specificSizeSelect">
+                    <option selected disabled>Choose Language</option>
+                    <option value="Java">Java</option>
+                    <option value="Cpp">Cpp</option>
+                    <option value="Python">Python</option>
+                </select>
+                <button type="button" id="run" class="btn btn-success ms-2"><i class="bi bi-play-fill"></i> Run</button>
+            </div>
         </div>
         <div class="editor-panel">
             <div class="editor">
@@ -239,8 +261,8 @@ print("Hello, World!")
                 lang: option.value,
             };
             try {
-                var response = await fetch("https://code-compiler-0a1v.onrender.com/compile", {
-                    method: "POST",
+                var response = await fetch("http://localhost:5000/compile", {
+                    method: "POST", 
                     headers: {
                         "Content-Type": "application/json"
                     },
